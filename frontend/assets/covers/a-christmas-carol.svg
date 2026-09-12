@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <!-- Soft Pastel Grain & Shimmer Filters -->
+    <linearGradient id="clothSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.08" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0" />
+    </radialGradient>
+    <filter id="gentleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2C1820" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Base Cozy Pastel Book Background -->
+  <rect width="600" height="900" fill="#F6F1ED" />
+  <rect width="600" height="900" fill="url(#sunGlow)" />
+  <rect width="600" height="900" fill="url(#clothSheen)" />
+
+  <!-- Authentic Left Spine Crease Shadow -->
+  <rect x="0" y="0" width="16" height="900" fill="#000000" fill-opacity="0.12" />
+  <line x1="16" y1="0" x2="16" y2="900" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- Outer Decorative Storybook Pastel Frame -->
+  <rect x="32" y="32" width="536" height="836" fill="none" stroke="#D0949A" stroke-width="2.5" rx="6" />
+  <rect x="40" y="40" width="520" height="820" fill="none" stroke="#D0949A" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" rx="4" />
+
+  <!-- Corner Flourish Accents & Stars -->
+  <g fill="#A24E56" stroke="#A24E56">
+    <path d="M 46 68 Q 68 68, 68 46" fill="none" stroke-width="2" />
+    <circle cx="56" cy="56" r="3" />
+    <path d="M 554 68 Q 532 68, 532 46" fill="none" stroke-width="2" />
+    <circle cx="544" cy="56" r="3" />
+    <path d="M 46 832 Q 68 832, 68 854" fill="none" stroke-width="2" />
+    <circle cx="56" cy="844" r="3" />
+    <path d="M 554 832 Q 532 832, 532 854" fill="none" stroke-width="2" />
+    <circle cx="544" cy="844" r="3" />
+  </g>
+
+  <!-- Top Nook Edition Header Banner -->
+  <g transform="translate(300, 78)">
+    <text text-anchor="middle" fill="#562228" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">✦  A NOOK EDITION  ·  1843  ✦</text>
+  </g>
+
+  <!-- Book Title in Elegant Serif Display -->
+  <g id="coverTitle">
+    
+      <text x="300" y="148" text-anchor="middle" fill="#562228" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="38" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">A Christmas</text>
+    
+      <text x="300" y="192" text-anchor="middle" fill="#562228" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="38" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">Carol</text>
+    
+  </g>
+
+  <!-- Author Name -->
+  <text x="300" y="240" text-anchor="middle" fill="#562228" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="600" letter-spacing="0.18em" opacity="0.85">CHARLES DICKENS</text>
+
+  <!-- Middle Storybook Illustrated Scene & Objects -->
+  <g id="coverIllustration">
+    
+        <!-- Classic Cozy Library Window & Shelf Backdrop -->
+        <rect x="120" y="260" width="360" height="320" rx="16" fill="#F4EFE6" stroke="#D0949A" stroke-width="2" />
+        <path d="M 140 330 C 140 260, 460 260, 460 330 L 460 560 L 140 560 Z" fill="#E8F0F4" stroke="#D0949A" stroke-width="2" />
+        <line x1="300" y1="270" x2="300" y2="560" stroke="#D0949A" stroke-width="2" />
+        <line x1="140" y1="400" x2="460" y2="400" stroke="#D0949A" stroke-width="2" />
+      
+    
+    <!-- Wooden / Marble Tabletop Surface with Depth -->
+    <rect x="40" y="560" width="520" height="220" fill="#FAF6EE" stroke="#D0949A" stroke-width="2" rx="4" />
+    <rect x="40" y="560" width="520" height="14" fill="#EAE2D4" />
+  
+      <!-- Vintage Gold Pocket Watch with Chain -->
+      <g transform="translate(340, 500)">
+        <circle cx="70" cy="90" r="42" fill="#D4AF67" filter="drop-shadow(2px 5px 8px rgba(0,0,0,0.15))" />
+        <circle cx="70" cy="90" r="36" fill="#FFFDF8" stroke="#B8924A" stroke-width="2" />
+        <!-- Clock Face Numerals & Hands -->
+        <circle cx="70" cy="90" r="2.5" fill="#3A2818" />
+        <line x1="70" y1="90" x2="70" y2="65" stroke="#3A2818" stroke-width="2" stroke-linecap="round" />
+        <line x1="70" y1="90" x2="88" y2="82" stroke="#3A2818" stroke-width="2.5" stroke-linecap="round" />
+        <text x="70" y="62" text-anchor="middle" fill="#58422A" font-family="Fraunces, serif" font-size="9" font-weight="bold">XII</text>
+        <text x="98" y="93" text-anchor="middle" fill="#58422A" font-family="Fraunces, serif" font-size="8" font-weight="bold">III</text>
+        <text x="70" y="122" text-anchor="middle" fill="#58422A" font-family="Fraunces, serif" font-size="8" font-weight="bold">VI</text>
+        <text x="42" y="93" text-anchor="middle" fill="#58422A" font-family="Fraunces, serif" font-size="8" font-weight="bold">IX</text>
+        <!-- Top Crown & Loop -->
+        <rect x="65" y="42" width="10" height="7" fill="#D4AF67" rx="1" />
+        <circle cx="70" cy="40" r="8" fill="none" stroke="#D4AF67" stroke-width="3" />
+        <!-- Golden Chain -->
+        <path d="M 70 32 Q 100 10, 130 50 Q 150 90, 180 120" fill="none" stroke="#D4AF67" stroke-width="2.5" stroke-dasharray="3,2" />
+      </g>
+    
+  </g>
+
+  <!-- Bottom Genre Category Banner -->
+  <g transform="translate(300, 818)">
+    <line x1="-120" y1="-14" x2="120" y2="-14" stroke="#D0949A" stroke-width="1.5" opacity="0.6" />
+    <circle cx="0" cy="-14" r="3" fill="#A24E56" />
+    <text y="8" text-anchor="middle" fill="#562228" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">CLASSIC · HOLIDAY</text>
+  </g>
+</svg>

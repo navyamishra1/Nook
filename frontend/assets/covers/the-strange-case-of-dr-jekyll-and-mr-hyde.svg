@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <!-- Soft Pastel Grain & Shimmer Filters -->
+    <linearGradient id="clothSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.08" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0" />
+    </radialGradient>
+    <filter id="gentleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2C1820" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Base Cozy Pastel Book Background -->
+  <rect width="600" height="900" fill="#EDF2EE" />
+  <rect width="600" height="900" fill="url(#sunGlow)" />
+  <rect width="600" height="900" fill="url(#clothSheen)" />
+
+  <!-- Authentic Left Spine Crease Shadow -->
+  <rect x="0" y="0" width="16" height="900" fill="#000000" fill-opacity="0.12" />
+  <line x1="16" y1="0" x2="16" y2="900" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- Outer Decorative Storybook Pastel Frame -->
+  <rect x="32" y="32" width="536" height="836" fill="none" stroke="#A4C2B4" stroke-width="2.5" rx="6" />
+  <rect x="40" y="40" width="520" height="820" fill="none" stroke="#A4C2B4" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" rx="4" />
+
+  <!-- Corner Flourish Accents & Stars -->
+  <g fill="#6A9280" stroke="#6A9280">
+    <path d="M 46 68 Q 68 68, 68 46" fill="none" stroke-width="2" />
+    <circle cx="56" cy="56" r="3" />
+    <path d="M 554 68 Q 532 68, 532 46" fill="none" stroke-width="2" />
+    <circle cx="544" cy="56" r="3" />
+    <path d="M 46 832 Q 68 832, 68 854" fill="none" stroke-width="2" />
+    <circle cx="56" cy="844" r="3" />
+    <path d="M 554 832 Q 532 832, 532 854" fill="none" stroke-width="2" />
+    <circle cx="544" cy="844" r="3" />
+  </g>
+
+  <!-- Top Nook Edition Header Banner -->
+  <g transform="translate(300, 78)">
+    <text text-anchor="middle" fill="#284438" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">✦  A NOOK EDITION  ·  1886  ✦</text>
+  </g>
+
+  <!-- Book Title in Elegant Serif Display -->
+  <g id="coverTitle">
+    
+      <text x="300" y="148" text-anchor="middle" fill="#284438" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="38" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">Dr. Jekyll and</text>
+    
+      <text x="300" y="192" text-anchor="middle" fill="#284438" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="38" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">Mr. Hyde</text>
+    
+  </g>
+
+  <!-- Author Name -->
+  <text x="300" y="240" text-anchor="middle" fill="#284438" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="600" letter-spacing="0.18em" opacity="0.85">ROBERT LOUIS STEVENSON</text>
+
+  <!-- Middle Storybook Illustrated Scene & Objects -->
+  <g id="coverIllustration">
+    
+        <!-- Classic Cozy Library Window & Shelf Backdrop -->
+        <rect x="120" y="260" width="360" height="320" rx="16" fill="#F4EFE6" stroke="#A4C2B4" stroke-width="2" />
+        <path d="M 140 330 C 140 260, 460 260, 460 330 L 460 560 L 140 560 Z" fill="#E8F0F4" stroke="#A4C2B4" stroke-width="2" />
+        <line x1="300" y1="270" x2="300" y2="560" stroke="#A4C2B4" stroke-width="2" />
+        <line x1="140" y1="400" x2="460" y2="400" stroke="#A4C2B4" stroke-width="2" />
+      
+    
+    <!-- Wooden / Marble Tabletop Surface with Depth -->
+    <rect x="40" y="560" width="520" height="220" fill="#FAF6EE" stroke="#A4C2B4" stroke-width="2" rx="4" />
+    <rect x="40" y="560" width="520" height="14" fill="#EAE2D4" />
+  
+  </g>
+
+  <!-- Bottom Genre Category Banner -->
+  <g transform="translate(300, 818)">
+    <line x1="-120" y1="-14" x2="120" y2="-14" stroke="#A4C2B4" stroke-width="1.5" opacity="0.6" />
+    <circle cx="0" cy="-14" r="3" fill="#6A9280" />
+    <text y="8" text-anchor="middle" fill="#284438" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">GOTHIC · MYSTERY</text>
+  </g>
+</svg>

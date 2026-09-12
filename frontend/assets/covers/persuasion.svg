@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <!-- Soft Pastel Grain & Shimmer Filters -->
+    <linearGradient id="clothSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.08" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0" />
+    </radialGradient>
+    <filter id="gentleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2C1820" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Base Cozy Pastel Book Background -->
+  <rect width="600" height="900" fill="#EEF4F8" />
+  <rect width="600" height="900" fill="url(#sunGlow)" />
+  <rect width="600" height="900" fill="url(#clothSheen)" />
+
+  <!-- Authentic Left Spine Crease Shadow -->
+  <rect x="0" y="0" width="16" height="900" fill="#000000" fill-opacity="0.12" />
+  <line x1="16" y1="0" x2="16" y2="900" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- Outer Decorative Storybook Pastel Frame -->
+  <rect x="32" y="32" width="536" height="836" fill="none" stroke="#B4CEE2" stroke-width="2.5" rx="6" />
+  <rect x="40" y="40" width="520" height="820" fill="none" stroke="#B4CEE2" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" rx="4" />
+
+  <!-- Corner Flourish Accents & Stars -->
+  <g fill="#6B94B8" stroke="#6B94B8">
+    <path d="M 46 68 Q 68 68, 68 46" fill="none" stroke-width="2" />
+    <circle cx="56" cy="56" r="3" />
+    <path d="M 554 68 Q 532 68, 532 46" fill="none" stroke-width="2" />
+    <circle cx="544" cy="56" r="3" />
+    <path d="M 46 832 Q 68 832, 68 854" fill="none" stroke-width="2" />
+    <circle cx="56" cy="844" r="3" />
+    <path d="M 554 832 Q 532 832, 532 854" fill="none" stroke-width="2" />
+    <circle cx="544" cy="844" r="3" />
+  </g>
+
+  <!-- Top Nook Edition Header Banner -->
+  <g transform="translate(300, 78)">
+    <text text-anchor="middle" fill="#2A4560" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">✦  A NOOK EDITION  ·  1817  ✦</text>
+  </g>
+
+  <!-- Book Title in Elegant Serif Display -->
+  <g id="coverTitle">
+    
+      <text x="300" y="165" text-anchor="middle" fill="#2A4560" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="42" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">Persuasion</text>
+    
+  </g>
+
+  <!-- Author Name -->
+  <text x="300" y="213" text-anchor="middle" fill="#2A4560" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="600" letter-spacing="0.18em" opacity="0.85">JANE AUSTEN</text>
+
+  <!-- Middle Storybook Illustrated Scene & Objects -->
+  <g id="coverIllustration">
+    
+        <!-- Classic Cozy Library Window & Shelf Backdrop -->
+        <rect x="120" y="260" width="360" height="320" rx="16" fill="#F4EFE6" stroke="#B4CEE2" stroke-width="2" />
+        <path d="M 140 330 C 140 260, 460 260, 460 330 L 460 560 L 140 560 Z" fill="#E8F0F4" stroke="#B4CEE2" stroke-width="2" />
+        <line x1="300" y1="270" x2="300" y2="560" stroke="#B4CEE2" stroke-width="2" />
+        <line x1="140" y1="400" x2="460" y2="400" stroke="#B4CEE2" stroke-width="2" />
+      
+    
+    <!-- Wooden / Marble Tabletop Surface with Depth -->
+    <rect x="40" y="560" width="520" height="220" fill="#FAF6EE" stroke="#B4CEE2" stroke-width="2" rx="4" />
+    <rect x="40" y="560" width="520" height="14" fill="#EAE2D4" />
+  
+      <!-- Elegant Pastel Love Letters with Red Wax Seal -->
+      <g transform="translate(190, 580)">
+        <!-- Lower Letter Envelope -->
+        <rect x="0" y="20" width="180" height="110" rx="4" fill="#FDFBF7" stroke="#B4CEE2" stroke-width="2" transform="rotate(-6)" filter="drop-shadow(2px 6px 8px rgba(0,0,0,0.06))" />
+        <!-- Top Letter Note with handwritten text -->
+        <rect x="70" y="40" width="150" height="95" rx="3" fill="#FFFDF8" stroke="#B4CEE2" stroke-width="1.5" transform="rotate(8)" filter="drop-shadow(2px 6px 8px rgba(0,0,0,0.08))" />
+        <text x="145" y="85" text-anchor="middle" fill="#2A4560" font-family="Caveat, 'Brush Script MT', cursive" font-size="19" transform="rotate(8, 145, 85)">You pierce my soul</text>
+        <!-- Crimson Wax Seal with Flourish -->
+        <circle cx="95" cy="75" r="18" fill="#B43246" filter="drop-shadow(1px 2px 4px rgba(0,0,0,0.2))" />
+        <circle cx="95" cy="75" r="14" fill="#9E2436" />
+        <text x="95" y="81" text-anchor="middle" fill="#FCE8EC" font-family="Fraunces, serif" font-size="14" font-weight="bold">✦</text>
+      </g>
+    
+  </g>
+
+  <!-- Bottom Genre Category Banner -->
+  <g transform="translate(300, 818)">
+    <line x1="-120" y1="-14" x2="120" y2="-14" stroke="#B4CEE2" stroke-width="1.5" opacity="0.6" />
+    <circle cx="0" cy="-14" r="3" fill="#6B94B8" />
+    <text y="8" text-anchor="middle" fill="#2A4560" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">ROMANCE · CLASSIC</text>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <!-- Soft Pastel Grain & Shimmer Filters -->
+    <linearGradient id="clothSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.08" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0" />
+    </radialGradient>
+    <filter id="gentleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2C1820" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Base Cozy Pastel Book Background -->
+  <rect width="600" height="900" fill="#EEF4EE" />
+  <rect width="600" height="900" fill="url(#sunGlow)" />
+  <rect width="600" height="900" fill="url(#clothSheen)" />
+
+  <!-- Authentic Left Spine Crease Shadow -->
+  <rect x="0" y="0" width="16" height="900" fill="#000000" fill-opacity="0.12" />
+  <line x1="16" y1="0" x2="16" y2="900" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- Outer Decorative Storybook Pastel Frame -->
+  <rect x="32" y="32" width="536" height="836" fill="none" stroke="#A8C8B2" stroke-width="2.5" rx="6" />
+  <rect x="40" y="40" width="520" height="820" fill="none" stroke="#A8C8B2" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" rx="4" />
+
+  <!-- Corner Flourish Accents & Stars -->
+  <g fill="#669674" stroke="#669674">
+    <path d="M 46 68 Q 68 68, 68 46" fill="none" stroke-width="2" />
+    <circle cx="56" cy="56" r="3" />
+    <path d="M 554 68 Q 532 68, 532 46" fill="none" stroke-width="2" />
+    <circle cx="544" cy="56" r="3" />
+    <path d="M 46 832 Q 68 832, 68 854" fill="none" stroke-width="2" />
+    <circle cx="56" cy="844" r="3" />
+    <path d="M 554 832 Q 532 832, 532 854" fill="none" stroke-width="2" />
+    <circle cx="544" cy="844" r="3" />
+  </g>
+
+  <!-- Top Nook Edition Header Banner -->
+  <g transform="translate(300, 78)">
+    <text text-anchor="middle" fill="#264832" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">✦  A NOOK EDITION  ·  1818  ✦</text>
+  </g>
+
+  <!-- Book Title in Elegant Serif Display -->
+  <g id="coverTitle">
+    
+      <text x="300" y="165" text-anchor="middle" fill="#264832" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="42" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">Frankenstein</text>
+    
+  </g>
+
+  <!-- Author Name -->
+  <text x="300" y="213" text-anchor="middle" fill="#264832" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="600" letter-spacing="0.18em" opacity="0.85">MARY SHELLEY</text>
+
+  <!-- Middle Storybook Illustrated Scene & Objects -->
+  <g id="coverIllustration">
+    
+        <!-- Laboratory Brick Arch Window -->
+        <path d="M 120 340 C 120 250, 480 250, 480 340 L 480 580 L 120 580 Z" fill="#E2EBE2" stroke="#A8C8B2" stroke-width="3" />
+        <!-- Night sky & distant Swiss Alps / Lightning streak -->
+        <path d="M 135 345 C 135 270, 465 270, 465 345 L 465 565 L 135 565 Z" fill="#2C4032" />
+        <polygon points="135,565 210,480 280,520 360,460 440,530 465,565" fill="#1C2E24" />
+        <polygon points="210,480 220,495 200,505" fill="#FFFFFF" fill-opacity="0.3" />
+        <polygon points="360,460 375,480 350,490" fill="#FFFFFF" fill-opacity="0.3" />
+        <!-- Lightning bolt in sky -->
+        <polyline points="290,290 280,340 305,345 295,410" stroke="#FFF8C0" stroke-width="2.5" fill="none" filter="drop-shadow(0 0 6px #FFF)" />
+        <!-- Window Mullions -->
+        <line x1="300" y1="260" x2="300" y2="565" stroke="#A8C8B2" stroke-width="2.5" />
+        <line x1="135" y1="400" x2="465" y2="400" stroke="#A8C8B2" stroke-width="2" />
+        <!-- Creeping ivy vines from top arch -->
+        <path d="M 130 290 Q 180 320, 240 280 Q 280 330, 350 290 Q 420 330, 470 290" stroke="#446C50" stroke-width="3" fill="none" />
+        <circle cx="160" cy="305" r="7" fill="#446C50" />
+        <circle cx="210" cy="295" r="8" fill="#446C50" />
+        <circle cx="260" cy="315" r="7" fill="#446C50" />
+        <circle cx="320" cy="300" r="8" fill="#446C50" />
+        <circle cx="390" cy="315" r="7" fill="#446C50" />
+        <circle cx="440" cy="300" r="8" fill="#446C50" />
+      
+    
+    <!-- Wooden / Marble Tabletop Surface with Depth -->
+    <rect x="40" y="560" width="520" height="220" fill="#FAF6EE" stroke="#A8C8B2" stroke-width="2" rx="4" />
+    <rect x="40" y="560" width="520" height="14" fill="#EAE2D4" />
+  
+      <!-- Galvanic Bell Jar Chamber with Electrical Arc & Potions -->
+      <g transform="translate(340, 480)">
+        <!-- Glass Bell Jar -->
+        <path d="M 40 180 L 40 70 C 40 20, 120 20, 120 70 L 120 180 Z" fill="#E4F4EC" fill-opacity="0.5" stroke="#90BC9E" stroke-width="2.5" filter="drop-shadow(0 4px 10px rgba(80,160,110,0.25))" />
+        <!-- Wooden Base with Brass Terminals -->
+        <rect x="25" y="180" width="110" height="18" rx="4" fill="#583C24" stroke="#3E2814" stroke-width="2" />
+        <circle cx="50" cy="180" r="5" fill="#D4AF67" />
+        <circle cx="110" cy="180" r="5" fill="#D4AF67" />
+        <!-- Glowing Electrode Filament & Electrical Arc -->
+        <line x1="80" y1="180" x2="80" y2="100" stroke="#D4AF67" stroke-width="4" />
+        <circle cx="80" cy="95" r="10" fill="#FFF8C0" filter="drop-shadow(0 0 8px #FFEA60)" />
+        <path d="M 80 95 Q 65 75, 75 60 Q 95 65, 80 95" stroke="#FFF080" stroke-width="2" fill="none" />
+        <!-- Glass Apothecary Flasks -->
+        <path d="M 0 170 L 10 145 L 10 130 L 22 130 L 22 145 L 32 170 Z" fill="#62A080" fill-opacity="0.8" stroke="#3A6C50" stroke-width="1.5" />
+        <rect x="8" y="125" width="16" height="5" fill="#C49A6C" rx="1" />
+      </g>
+    
+      <!-- Elegant Pastel Stacked Leather Books with Spine Foil -->
+      <g transform="translate(100, 520)">
+        <!-- Book 1 (Bottom) -->
+        <rect x="0" y="120" width="200" height="34" rx="3" fill="#264832" filter="drop-shadow(2px 5px 6px rgba(0,0,0,0.12))" />
+        <rect x="5" y="123" width="190" height="28" fill="none" stroke="#D4B46A" stroke-width="1" stroke-opacity="0.7" rx="2" />
+        <text x="100" y="142" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, serif" font-size="14" font-weight="600" letter-spacing="0.08em">Responsibility</text>
+        <!-- Book 2 (Middle) -->
+        <rect x="15" y="85" width="180" height="32" rx="3" fill="#669674" filter="drop-shadow(2px 4px 5px rgba(0,0,0,0.1))" />
+        <rect x="20" y="88" width="170" height="26" fill="none" stroke="#D4B46A" stroke-width="1" stroke-opacity="0.7" rx="2" />
+        <text x="105" y="106" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, serif" font-size="13" font-weight="600" letter-spacing="0.08em">Creation</text>
+        <!-- Book 3 (Top) -->
+        <rect x="30" y="52" width="160" height="30" rx="3" fill="#446C50" filter="drop-shadow(2px 3px 4px rgba(0,0,0,0.08))" />
+        <rect x="34" y="55" width="152" height="24" fill="none" stroke="#D4B46A" stroke-width="1" stroke-opacity="0.7" rx="2" />
+        <text x="110" y="72" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, serif" font-size="13" font-weight="600" letter-spacing="0.08em">Science</text>
+      </g>
+    
+  </g>
+
+  <!-- Bottom Genre Category Banner -->
+  <g transform="translate(300, 818)">
+    <line x1="-120" y1="-14" x2="120" y2="-14" stroke="#A8C8B2" stroke-width="1.5" opacity="0.6" />
+    <circle cx="0" cy="-14" r="3" fill="#669674" />
+    <text y="8" text-anchor="middle" fill="#264832" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">SCIENCE FICTION · GOTHIC</text>
+  </g>
+</svg>

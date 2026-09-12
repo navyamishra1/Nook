@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="100%" height="100%">
+  <defs>
+    <!-- Soft Pastel Grain & Shimmer Filters -->
+    <linearGradient id="clothSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.08" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0" />
+    </radialGradient>
+    <filter id="gentleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#2C1820" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Base Cozy Pastel Book Background -->
+  <rect width="600" height="900" fill="#FAF6EB" />
+  <rect width="600" height="900" fill="url(#sunGlow)" />
+  <rect width="600" height="900" fill="url(#clothSheen)" />
+
+  <!-- Authentic Left Spine Crease Shadow -->
+  <rect x="0" y="0" width="16" height="900" fill="#000000" fill-opacity="0.12" />
+  <line x1="16" y1="0" x2="16" y2="900" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1.5" />
+
+  <!-- Outer Decorative Storybook Pastel Frame -->
+  <rect x="32" y="32" width="536" height="836" fill="none" stroke="#BED6C2" stroke-width="2.5" rx="6" />
+  <rect x="40" y="40" width="520" height="820" fill="none" stroke="#BED6C2" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" rx="4" />
+
+  <!-- Corner Flourish Accents & Stars -->
+  <g fill="#78A082" stroke="#78A082">
+    <path d="M 46 68 Q 68 68, 68 46" fill="none" stroke-width="2" />
+    <circle cx="56" cy="56" r="3" />
+    <path d="M 554 68 Q 532 68, 532 46" fill="none" stroke-width="2" />
+    <circle cx="544" cy="56" r="3" />
+    <path d="M 46 832 Q 68 832, 68 854" fill="none" stroke-width="2" />
+    <circle cx="56" cy="844" r="3" />
+    <path d="M 554 832 Q 532 832, 532 854" fill="none" stroke-width="2" />
+    <circle cx="544" cy="844" r="3" />
+  </g>
+
+  <!-- Top Nook Edition Header Banner -->
+  <g transform="translate(300, 78)">
+    <text text-anchor="middle" fill="#32503A" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">✦  A NOOK EDITION  ·  1868  ✦</text>
+  </g>
+
+  <!-- Book Title in Elegant Serif Display -->
+  <g id="coverTitle">
+    
+      <text x="300" y="165" text-anchor="middle" fill="#32503A" font-family="Fraunces, 'Playfair Display', Georgia, serif" font-size="42" font-weight="600" letter-spacing="-0.02em" filter="url(#gentleShadow)">Little Women</text>
+    
+  </g>
+
+  <!-- Author Name -->
+  <text x="300" y="213" text-anchor="middle" fill="#32503A" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="600" letter-spacing="0.18em" opacity="0.85">LOUISA MAY ALCOTT</text>
+
+  <!-- Middle Storybook Illustrated Scene & Objects -->
+  <g id="coverIllustration">
+    
+        <!-- Cozy Sunny Orchard House Window -->
+        <path d="M 120 340 C 120 250, 480 250, 480 340 L 480 580 L 120 580 Z" fill="#FFFFFF" fill-opacity="0.9" stroke="#BED6C2" stroke-width="3" />
+        <path d="M 135 345 C 135 270, 465 270, 465 345 L 465 565 L 135 565 Z" fill="#EEF7EE" />
+        <!-- Apple Orchard with blooming trees -->
+        <path d="M 135 480 Q 240 450, 360 480 Q 420 495, 465 470 L 465 565 L 135 565 Z" fill="#CCE6CE" />
+        <!-- Orchard apple trees -->
+        <circle cx="200" cy="450" r="30" fill="#88C090" />
+        <circle cx="280" cy="435" r="35" fill="#78B080" />
+        <circle cx="380" cy="445" r="32" fill="#88C090" />
+        <!-- Red apples on trees -->
+        <circle cx="190" cy="445" r="3.5" fill="#E84858" />
+        <circle cx="215" cy="460" r="3.5" fill="#E84858" />
+        <circle cx="270" cy="430" r="4" fill="#E84858" />
+        <circle cx="295" cy="445" r="4" fill="#E84858" />
+        <circle cx="370" cy="440" r="3.5" fill="#E84858" />
+        <circle cx="395" cy="455" r="3.5" fill="#E84858" />
+        <!-- Window Mullions -->
+        <line x1="300" y1="260" x2="300" y2="565" stroke="#BED6C2" stroke-width="2.5" />
+        <line x1="135" y1="390" x2="465" y2="390" stroke="#BED6C2" stroke-width="2" />
+        <line x1="135" y1="470" x2="465" y2="470" stroke="#BED6C2" stroke-width="2" />
+      
+    
+    <!-- Wooden / Marble Tabletop Surface with Depth -->
+    <rect x="40" y="560" width="520" height="220" fill="#FAF6EE" stroke="#BED6C2" stroke-width="2" rx="4" />
+    <rect x="40" y="560" width="520" height="14" fill="#EAE2D4" />
+  
+      <!-- Ceramic Pitcher Vase with Floral Bouquet -->
+      <g transform="translate(90, 470)">
+        <path d="M 30 80 C 15 130, 20 170, 45 170 C 70 170, 75 130, 60 80 Z" fill="#FFFFFF" stroke="#BED6C2" stroke-width="2" filter="drop-shadow(2px 4px 6px rgba(0,0,0,0.08))" />
+        <path d="M 25 105 C 5 115, 5 145, 25 155" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" />
+        <!-- Daisies / Blossoms -->
+        <g transform="translate(45, 75)">
+          <circle cx="-15" cy="-25" r="7" fill="#FFDC5E" />
+          <circle cx="-15" cy="-37" r="6" fill="#FFF" /><circle cx="-5" cy="-33" r="6" fill="#FFF" />
+          <circle cx="-5" cy="-20" r="6" fill="#FFF" /><circle cx="-15" cy="-13" r="6" fill="#FFF" />
+          <circle cx="-25" cy="-20" r="6" fill="#FFF" /><circle cx="-25" cy="-33" r="6" fill="#FFF" />
+
+          <circle cx="15" cy="-35" r="7" fill="#FFDC5E" />
+          <circle cx="15" cy="-47" r="6" fill="#FFF" /><circle cx="25" cy="-43" r="6" fill="#FFF" />
+          <circle cx="25" cy="-30" r="6" fill="#FFF" /><circle cx="15" cy="-23" r="6" fill="#FFF" />
+          <circle cx="5" cy="-30" r="6" fill="#FFF" /><circle cx="5" cy="-43" r="6" fill="#FFF" />
+
+          <circle cx="0" cy="-55" r="7" fill="#FFDC5E" />
+          <circle cx="0" cy="-67" r="6" fill="#FFF" /><circle cx="10" cy="-63" r="6" fill="#FFF" />
+          <circle cx="10" cy="-50" r="6" fill="#FFF" /><circle cx="0" cy="-43" r="6" fill="#FFF" />
+          <circle cx="-10" cy="-50" r="6" fill="#FFF" /><circle cx="-10" cy="-63" r="6" fill="#FFF" />
+        </g>
+      </g>
+    
+      <!-- Elegant Pastel Stacked Leather Books with Spine Foil -->
+      <g transform="translate(100, 520)">
+        <!-- Book 1 (Bottom) -->
+        <rect x="0" y="120" width="200" height="34" rx="3" fill="#32503A" filter="drop-shadow(2px 5px 6px rgba(0,0,0,0.12))" />
+        <rect x="5" y="123" width="190" height="28" fill="none" stroke="#D4AE60" stroke-width="1" stroke-opacity="0.7" rx="2" />
+        <text x="100" y="142" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, serif" font-size="14" font-weight="600" letter-spacing="0.08em">Kindness</text>
+        <!-- Book 2 (Middle) -->
+        <rect x="15" y="85" width="180" height="32" rx="3" fill="#78A082" filter="drop-shadow(2px 4px 5px rgba(0,0,0,0.1))" />
+        <rect x="20" y="88" width="170" height="26" fill="none" stroke="#D4AE60" stroke-width="1" stroke-opacity="0.7" rx="2" />
+        <text x="105" y="106" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, serif" font-size="13" font-weight="600" letter-spacing="0.08em">Creativity</text>
+        <!-- Book 3 (Top) -->
+        <rect x="30" y="52" width="160" height="30" rx="3" fill="#52785A" filter="drop-shadow(2px 3px 4px rgba(0,0,0,0.08))" />
+        <rect x="34" y="55" width="152" height="24" fill="none" stroke="#D4AE60" stroke-width="1" stroke-opacity="0.7" rx="2" />
+        <text x="110" y="72" text-anchor="middle" fill="#FFFFFF" font-family="Fraunces, serif" font-size="13" font-weight="600" letter-spacing="0.08em">Sisterhood</text>
+      </g>
+    
+      <!-- Whimsical Stacked Teacups & Drink Me Bottle -->
+      <g transform="translate(110, 480)">
+        <!-- Bottom Teacup with Saucer -->
+        <ellipse cx="60" cy="180" rx="45" ry="10" fill="#E8EEF4" stroke="#BED6C2" stroke-width="2" />
+        <path d="M 25 140 C 25 175, 95 175, 95 140 Z" fill="#FFFFFF" stroke="#BED6C2" stroke-width="2" />
+        <path d="M 95 145 C 110 145, 110 165, 95 165" stroke="#BED6C2" stroke-width="3" fill="none" />
+        <circle cx="50" cy="155" r="4" fill="#F288A0" /><circle cx="70" cy="155" r="4" fill="#F288A0" />
+        <!-- Middle Teacup (Tilted) -->
+        <g transform="translate(20, 95) rotate(-8)">
+          <path d="M 25 20 C 25 50, 85 50, 85 20 Z" fill="#FDF2F5" stroke="#BED6C2" stroke-width="2" />
+          <path d="M 85 25 C 98 25, 98 42, 85 42" stroke="#BED6C2" stroke-width="2.5" fill="none" />
+          <text x="55" y="38" text-anchor="middle" fill="#E8587C" font-size="12">♥</text>
+        </g>
+      </g>
+    
+      <!-- Open Journal Sketchbook & Vintage Gold Nib Fountain Pen -->
+      <g transform="translate(180, 620)">
+        <!-- Open Double-Page Journal -->
+        <rect x="0" y="0" width="180" height="110" rx="3" fill="#FFFDF8" stroke="#BED6C2" stroke-width="2" transform="rotate(-4)" filter="drop-shadow(2px 6px 8px rgba(0,0,0,0.08))" />
+        <line x1="90" y1="0" x2="90" y2="110" stroke="#D8C8B4" stroke-width="2" transform="rotate(-4, 90, 55)" />
+        <!-- Faint botanical sketch in journal -->
+        <path d="M 40 85 Q 50 40, 70 30" stroke="#8EA692" stroke-width="1.5" fill="none" transform="rotate(-4, 90, 55)" />
+        <ellipse cx="60" cy="45" rx="6" ry="10" fill="#B4D0B8" transform="rotate(20, 60, 45)" />
+        <ellipse cx="48" cy="62" rx="6" ry="10" fill="#B4D0B8" transform="rotate(-30, 48, 62)" />
+        <!-- Gold Nib Pen -->
+        <g transform="translate(120, 20) rotate(35)">
+          <rect x="0" y="0" width="8" height="90" rx="2" fill="#2E2822" />
+          <rect x="0" y="15" width="8" height="6" fill="#D4AF67" />
+          <polygon points="0,90 8,90 4,106" fill="#D4AF67" />
+          <line x1="4" y1="92" x2="4" y2="102" stroke="#111" stroke-width="0.8" />
+        </g>
+      </g>
+    
+  </g>
+
+  <!-- Bottom Genre Category Banner -->
+  <g transform="translate(300, 818)">
+    <line x1="-120" y1="-14" x2="120" y2="-14" stroke="#BED6C2" stroke-width="1.5" opacity="0.6" />
+    <circle cx="0" cy="-14" r="3" fill="#78A082" />
+    <text y="8" text-anchor="middle" fill="#32503A" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" letter-spacing="0.22em" opacity="0.85">CLASSIC · COMING OF AGE</text>
+  </g>
+</svg>

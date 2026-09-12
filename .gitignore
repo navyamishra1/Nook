@@ -1,0 +1,81 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+
+# Node.js / Frontend dependencies & builds
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+build/
+.next/
+out/
+
+# Python / Backend caches & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & runtime caches
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# Book data artifacts (raw downloads / scratch files)
+data/books/raw/
+data/books/tmp/
+!data/books/.gitkeep
+!data/seed/.gitkeep
+
+# AI / Vector indices local storage
+ai/indices/
+ai/cache/
+
+# IDE & Deployment files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vercel/
+frontend/.vercel/
+
+# Temporary scratch images & crop caches
+scratch/*.png
+scratch/crops_*
+scratch/ref_crops/
+scratch/refined_crops/
+scratch/test_32_crops/

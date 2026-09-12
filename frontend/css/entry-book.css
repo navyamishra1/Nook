@@ -1,0 +1,771 @@
+/* ==========================================================================
+   Nook Entry Experience — Physical & Minimal Open Book Animation
+   Deterministic Sequence:
+   1. Closed Book (360x520px tactile book centered on warm cream backdrop)
+   2. Book Opening (Front cover physically swings open -175deg over ~500ms)
+   3. Open Spread Hold (~200ms quiet pause on natural open spread)
+   4. Zoom into Right Page (Camera glides into right page over ~550ms)
+   5. Homepage Reveal (Seamless blend into Nook sanctuary)
+   ========================================================================== */
+
+/* Fullscreen Entry Overlay */
+#entry-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: var(--cursor-default);
+  overflow: hidden;
+  user-select: none;
+  transition: opacity 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0.4s ease;
+}
+
+#entry-overlay.entry-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  display: none !important;
+}
+
+/* Skip Action Button (Top Right) */
+.entry-skip-btn {
+  position: absolute;
+  top: 32px;
+  right: 40px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  z-index: 10000;
+  cursor: var(--cursor-pointer);
+}
+
+.entry-skip-btn:hover {
+  color: var(--text);
+  background: var(--hover);
+  border-color: var(--sage);
+  transform: translateX(2px);
+}
+
+@media (max-width: 600px) {
+  .entry-skip-btn {
+    top: 20px;
+    right: 20px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* Central Stage Container */
+.book-stage-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1800px;
+  transform-style: preserve-3d;
+  width: 100%;
+  max-width: 1100px;
+  padding: 20px;
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ==========================================================================
+   Tactile Physical Book Container
+   ========================================================================== */
+.tactile-book {
+  position: relative;
+  width: clamp(300px, 36vw, 360px);
+  height: clamp(450px, 58vh, 520px);
+  transform-style: preserve-3d;
+  cursor: var(--cursor-pointer);
+  outline: none;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Ensure all child elements of the book do not intercept pointer events,
+   guaranteeing the entire 360x520px book surface acts as a single deterministic target */
+.tactile-book * {
+  pointer-events: none;
+}
+
+/* Ambient Diffused Shadow Under Book */
+.book-ambient-shadow {
+  position: absolute;
+  inset: -15px -12px -25px -15px;
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    rgba(46, 42, 38, 0.22) 0%,
+    rgba(46, 42, 38, 0.08) 45%,
+    transparent 70%
+  );
+  filter: blur(16px);
+  border-radius: 16px;
+  transform: translateZ(-35px);
+  transition: all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-ambient-shadow {
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    transparent 70%
+  );
+}
+
+/* Keyboard Focus Ring */
+.tactile-book:focus-visible {
+  outline: 2px solid var(--sage-deep);
+  outline-offset: 10px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Back Cover & Page Block (Right Side Base)
+   ========================================================================== */
+.book-back-cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--book-cover-base) 0%, var(--book-cover-dark) 100%);
+  border-radius: 2px 5px 5px 2px;
+  transform: translateZ(-14px);
+  box-shadow: 0 4px 16px rgba(46, 42, 38, 0.18);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.book-page-block {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 10px;
+  right: 3px;
+  background: #F7F3EA;
+  border-radius: 0 3px 3px 0;
+  transform: translateZ(-7px);
+  box-shadow: 
+    inset 0 0 0 1px rgba(221, 209, 186, 0.8),
+    2px 0 0 rgba(235, 225, 206, 0.9),
+    4px 0 0 rgba(221, 209, 186, 0.7),
+    6px 0 0 rgba(235, 225, 206, 0.6),
+    8px 0 0 rgba(221, 209, 186, 0.5);
+  transition: opacity 0.4s ease;
+}
+
+[data-theme="dark"] .book-page-block {
+  background: #332D27;
+  box-shadow: 
+    inset 0 0 0 1px rgba(66, 60, 52, 0.8),
+    2px 0 0 rgba(50, 45, 39, 0.9),
+    4px 0 0 rgba(66, 60, 52, 0.7),
+    6px 0 0 rgba(50, 45, 39, 0.6);
+}
+
+/* Narrow, Muted Terracotta Bookmark Ribbon */
+.book-ribbon {
+  position: absolute;
+  top: -4px;
+  left: 24px;
+  width: 9px;
+  height: calc(100% + 24px);
+  background: var(--ribbon-color, #9E5353);
+  transform: translateZ(5px);
+  border-radius: 1px 1px 0 0;
+  box-shadow: 1px 2px 4px rgba(46, 42, 38, 0.16);
+  z-index: 26;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 5px), 0 100%);
+  transition: all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .book-ribbon {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* Subtle, Narrow Center Spine Gutter Crease */
+.book-spine-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -7px;
+  width: 14px;
+  background: linear-gradient(
+    to right,
+    rgba(46, 42, 38, 0.10) 0%,
+    rgba(46, 42, 38, 0.03) 35%,
+    transparent 50%,
+    rgba(46, 42, 38, 0.03) 65%,
+    rgba(46, 42, 38, 0.10) 100%
+  );
+  z-index: 25;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease 0.1s;
+}
+
+[data-theme="dark"] .book-spine-gutter {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.08) 35%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.08) 65%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+/* ==========================================================================
+   Inside Spread Pages (Refined Physical Open Book)
+   ========================================================================== */
+
+/* Right Spread Page (Title Page / Zoom Focal Surface) */
+.inside-page-right {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #EAE2D2 0%,
+    #FAF6EF 14%,
+    #FAF6EF 88%,
+    #F4EEE3 100%
+  );
+  border-radius: 0 4px 4px 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 32px;
+  box-shadow: 
+    inset -1px 1px 2px rgba(255, 255, 255, 0.8),
+    inset 10px 0 18px -6px rgba(46, 42, 38, 0.10),
+    inset 0 0 0 1px rgba(227, 217, 198, 0.55),
+    3px 4px 12px rgba(46, 42, 38, 0.08);
+  transform-origin: center center;
+  transition: background 0.45s ease, box-shadow 0.45s ease;
+}
+
+[data-theme="dark"] .inside-page-right {
+  background: linear-gradient(
+    to right,
+    #24211D 0%,
+    #2C2823 14%,
+    #2C2823 88%,
+    #282420 100%
+  );
+  box-shadow: 
+    inset -1px 1px 2px rgba(255, 255, 255, 0.05),
+    inset 10px 0 18px -6px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(69, 63, 55, 0.6),
+    3px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.inside-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 240px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.inside-page-content .nook-title-inside {
+  font-family: var(--serif-display);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  margin: 0;
+}
+
+.inside-page-content .inside-divider {
+  width: 32px;
+  height: 1px;
+  background: var(--sage);
+  margin: 2px 0;
+  opacity: 0.8;
+}
+
+.inside-page-content .inside-motto {
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+  margin: 0;
+}
+
+.inside-page-content .inside-edition-tag {
+  font-family: var(--sans);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* Left Spread Page (Ex Libris — expands to left of spine on open) */
+.inside-page-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    #F4EEE3 0%,
+    #FAF6EF 12%,
+    #FAF6EF 86%,
+    #EAE2D2 100%
+  );
+  border-radius: 4px 0 0 4px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 28px;
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+    inset -10px 0 18px -6px rgba(46, 42, 38, 0.10),
+    inset 0 0 0 1px rgba(227, 217, 198, 0.55),
+    -3px 4px 12px rgba(46, 42, 38, 0.08);
+  border-right: 1px solid rgba(46, 42, 38, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease 0.1s, transform 0.4s ease;
+}
+
+[data-theme="dark"] .inside-page-left {
+  background: linear-gradient(
+    to right,
+    #282420 0%,
+    #2C2823 12%,
+    #2C2823 86%,
+    #24211D 100%
+  );
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+    inset -10px 0 18px -6px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(69, 63, 55, 0.6),
+    -3px 4px 12px rgba(0, 0, 0, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.inside-page-left .ex-libris {
+  font-family: var(--serif-display);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.inside-page-left .paper-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+  opacity: 0.6;
+}
+
+.inside-page-left .paper-lines span {
+  display: block;
+  height: 1px;
+  background: var(--border-light);
+}
+
+.inside-page-left .paper-lines span:nth-child(1) { width: 80%; }
+.inside-page-left .paper-lines span:nth-child(2) { width: 92%; }
+.inside-page-left .paper-lines span:nth-child(3) { width: 68%; }
+.inside-page-left .paper-lines span:nth-child(4) { width: 88%; }
+.inside-page-left .paper-lines span:nth-child(5) { width: 55%; }
+
+.inside-page-left .paper-tag-bottom {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: var(--serif-body);
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   Front 3D Cover Leaf (Swings open 175deg around spine)
+   ========================================================================== */
+.book-cover-leaf {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  z-index: 30;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Front Face (Outside Book Cloth/Leather Cover) */
+.cover-face-front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, var(--book-cover-base) 0%, var(--book-cover-dark) 100%);
+  border-radius: 2px 5px 5px 2px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.20),
+    -3px 0 10px rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+}
+
+/* Spine Texture on Cover */
+.cover-face-front::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(255, 255, 255, 0.10) 50%,
+    rgba(0, 0, 0, 0.32) 100%
+  );
+  border-radius: 2px 0 0 2px;
+  pointer-events: none;
+}
+
+/* Blind-Embossed Gold Frame */
+.cover-inner-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(213, 194, 154, 0.4);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 16px;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.cover-corner-flourish {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(213, 194, 154, 0.55);
+}
+
+.flourish-tl { top: 4px; left: 4px; border-top: 1px solid; border-left: 1px solid; }
+.flourish-tr { top: 4px; right: 4px; border-top: 1px solid; border-right: 1px solid; }
+.flourish-bl { bottom: 4px; left: 4px; border-bottom: 1px solid; border-left: 1px solid; }
+.flourish-br { bottom: 4px; right: 4px; border-bottom: 1px solid; border-right: 1px solid; }
+
+.cover-header-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--book-cover-foil);
+  opacity: 0.9;
+}
+
+.cover-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.cover-main-title {
+  font-family: var(--serif-display);
+  font-size: clamp(32px, 4.5vw, 40px);
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--bg);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  margin: 0;
+}
+
+.cover-title-rule {
+  width: 42px;
+  height: 1px;
+  background: var(--book-cover-foil);
+  opacity: 0.75;
+}
+
+.cover-sub-label {
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--book-cover-foil);
+  opacity: 0.9;
+}
+
+.cover-footer-tag {
+  font-family: var(--sans);
+  font-size: 9.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--book-cover-foil);
+  opacity: 0.75;
+}
+
+/* Dynamic Lighting Sheen during rotation */
+.cover-lighting-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.12) 50%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* Back Face (Inside Front Cover / Left Page Facing) */
+.cover-face-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #EAE2D2 0%,
+    #FAF6EF 14%,
+    #FAF6EF 88%,
+    #F4EEE3 100%
+  );
+  border-radius: 0 4px 4px 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+    inset 10px 0 18px -6px rgba(46, 42, 38, 0.10),
+    inset 0 0 0 1px rgba(227, 217, 198, 0.55),
+    -3px 4px 12px rgba(46, 42, 38, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 28px;
+}
+
+[data-theme="dark"] .cover-face-back {
+  background: linear-gradient(
+    to right,
+    #24211D 0%,
+    #2C2823 14%,
+    #2C2823 88%,
+    #282420 100%
+  );
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+    inset 10px 0 18px -6px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(69, 63, 55, 0.6),
+    -3px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.inside-cover-lining {
+  display: none;
+}
+
+/* Prompt Below Book */
+.entry-prompt-text {
+  margin-top: 24px;
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.entry-prompt-text .key-hint {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 10.5px;
+  padding: 2px 6px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   STATE TRANSFORMATIONS
+   ========================================================================== */
+
+/* PHASE 2 & 3: Opening (~500ms) & Open Spread Hold (~200ms) */
+.tactile-book.is-opening,
+.tactile-book.is-open {
+  transform: translateX(180px);
+}
+
+.tactile-book.is-opening .book-cover-leaf,
+.tactile-book.is-open .book-cover-leaf,
+.tactile-book.is-entering .book-cover-leaf {
+  transform: rotateY(-180deg) !important;
+}
+
+.tactile-book.is-opening .cover-lighting-sheen {
+  opacity: 0.3;
+}
+
+.tactile-book.is-opening .inside-page-left,
+.tactile-book.is-open .inside-page-left {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tactile-book.is-opening .book-spine-gutter,
+.tactile-book.is-open .book-spine-gutter {
+  opacity: 1;
+}
+
+.tactile-book.is-opening .book-ribbon,
+.tactile-book.is-open .book-ribbon {
+  left: -4.5px;
+  top: -6px;
+  transform: translateZ(6px) rotate(1.5deg) translateY(3px);
+}
+
+.tactile-book.is-opening .book-ambient-shadow,
+.tactile-book.is-open .book-ambient-shadow {
+  inset: -20px -25px -30px -100%;
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    rgba(46, 42, 38, 0.20) 0%,
+    rgba(46, 42, 38, 0.06) 50%,
+    transparent 75%
+  );
+  filter: blur(20px);
+}
+
+[data-theme="dark"] .tactile-book.is-opening .book-ambient-shadow,
+[data-theme="dark"] .tactile-book.is-open .book-ambient-shadow {
+  background: radial-gradient(
+    ellipse at 50% 65%,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    transparent 75%
+  );
+}
+
+.book-stage-container.is-opening .entry-prompt-text,
+.book-stage-container.is-open .entry-prompt-text,
+.book-stage-container.is-entering .entry-prompt-text,
+#entry-overlay:has(.is-opening) .entry-skip-btn,
+#entry-overlay:has(.is-open) .entry-skip-btn,
+#entry-overlay:has(.is-entering) .entry-skip-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* PHASE 4: Entering (Smooth Camera Glide into Right Page over ~550ms) */
+.book-stage-container.is-entering {
+  transform: scale(3.6) translate(-180px, 0);
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.tactile-book.is-entering {
+  transform: translateX(180px);
+}
+
+.tactile-book.is-entering .inside-page-left,
+.tactile-book.is-entering .book-cover-leaf,
+.tactile-book.is-entering .book-ribbon,
+.tactile-book.is-entering .book-back-cover,
+.tactile-book.is-entering .book-page-block,
+.tactile-book.is-entering .book-ambient-shadow,
+.tactile-book.is-entering .book-spine-gutter {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.tactile-book.is-entering .inside-page-right {
+  box-shadow: none;
+  background: var(--bg);
+  border-radius: 0;
+  transition: background 0.45s ease;
+}
+
+.tactile-book.is-entering .inside-page-content {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ==========================================================================
+   ACCESSIBLE REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .tactile-book,
+  .book-cover-leaf,
+  .inside-page-right,
+  .inside-page-left,
+  .inside-page-content,
+  .book-ribbon,
+  .book-ambient-shadow,
+  .book-stage-container,
+  #entry-overlay {
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease !important;
+    transform: none !important;
+  }
+
+  .tactile-book.is-opening,
+  .tactile-book.is-open,
+  .tactile-book.is-entering {
+    transform: none !important;
+  }
+
+  .tactile-book.is-opening .book-cover-leaf,
+  .tactile-book.is-open .book-cover-leaf,
+  .tactile-book.is-entering .book-cover-leaf {
+    opacity: 0 !important;
+    pointer-events: none;
+    transform: none !important;
+  }
+
+  .tactile-book.is-opening .inside-page-left,
+  .tactile-book.is-open .inside-page-left {
+    opacity: 1 !important;
+  }
+
+  .tactile-book.is-entering .inside-page-left {
+    opacity: 0 !important;
+  }
+
+  .tactile-book.is-entering .inside-page-right {
+    background-color: var(--bg) !important;
+  }
+
+  .tactile-book.is-entering .inside-page-content {
+    opacity: 0 !important;
+  }
+
+  .book-stage-container.is-entering {
+    transform: none !important;
+  }
+}
