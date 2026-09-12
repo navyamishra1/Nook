@@ -18,8 +18,8 @@ export const TYPOGRAPHY_CONFIG = {
     lineHeightPx: 23,
     charsPerLine: 64,
     wordsPerLine: 11.5,
-    pageLineBudget: 30,
-    chapter1LineBudget: 22,
+    pageLineBudget: 29,
+    chapter1LineBudget: 21,
     paragraphGapLines: 0.6,
   },
   md: {
@@ -27,8 +27,8 @@ export const TYPOGRAPHY_CONFIG = {
     lineHeightPx: 26,
     charsPerLine: 58,
     wordsPerLine: 10.2,
-    pageLineBudget: 26,
-    chapter1LineBudget: 19,
+    pageLineBudget: 25,
+    chapter1LineBudget: 18,
     paragraphGapLines: 0.6,
   },
   lg: {
@@ -36,8 +36,8 @@ export const TYPOGRAPHY_CONFIG = {
     lineHeightPx: 29.5,
     charsPerLine: 52,
     wordsPerLine: 9.0,
-    pageLineBudget: 23,
-    chapter1LineBudget: 16,
+    pageLineBudget: 22,
+    chapter1LineBudget: 15,
     paragraphGapLines: 0.6,
   },
 };
@@ -111,16 +111,25 @@ function checkDomFit(measurer, headerHtml, paragraphUnits, fontSize, isChapterFi
     <article class="${proseClass}">
       ${paragraphsHtml}
     </article>
-    <div class="reader-paper-page-number" aria-hidden="true">— 1 —</div>
+    <div class="reader-paper-footer-row" aria-label="Page navigation">
+      <button class="reader-paper-corner-nav prev-corner" aria-label="Previous page"><span class="corner-nav-arrow">←</span></button>
+      <div class="reader-paper-page-number" aria-hidden="true">— 1 —</div>
+      <button class="reader-paper-corner-nav next-corner" aria-label="Next page"><span class="corner-nav-arrow">→</span></button>
+    </div>
   `;
 
   const clientH = measurer.clientHeight || 848;
   const scrollH = measurer.scrollHeight;
   const proseEl = measurer.querySelector('.reader-prose');
+  const lastPara = proseEl ? proseEl.querySelector('p:last-of-type') : null;
   const proseBottom = proseEl ? (proseEl.offsetTop + proseEl.offsetHeight) : 0;
-  const maxAllowedBottom = clientH - 58;
+  const lastParaBottom = lastPara ? (lastPara.offsetTop + lastPara.offsetHeight) : proseBottom;
 
-  return scrollH <= clientH && proseBottom <= maxAllowedBottom;
+  // The 48px corner navigation arrows and folio sit at bottom: 16px (top of footer is clientH - 64).
+  // Readable text must strictly end above this reserved footer zone with guaranteed clear space (at or above clientH - 80).
+  const maxAllowedBottom = clientH - 80;
+
+  return scrollH <= clientH && proseBottom <= maxAllowedBottom && lastParaBottom <= maxAllowedBottom;
 }
 
 /**

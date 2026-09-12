@@ -62,7 +62,7 @@ async function runSuite() {
     assert.strictEqual(TYPOGRAPHY_CONFIG.lg.fontSizePx, 17.5);
     assert.strictEqual(TYPOGRAPHY_CONFIG.md.lineHeightPx, 26);
     assert.strictEqual(TYPOGRAPHY_CONFIG.md.charsPerLine, 58);
-    assert.strictEqual(TYPOGRAPHY_CONFIG.md.pageLineBudget, 26);
+    assert.strictEqual(TYPOGRAPHY_CONFIG.md.pageLineBudget, 25);
   });
 
   console.log('\n--- 2. Oliver Twist Target Bug Verification ---');

@@ -208,7 +208,7 @@ it('7. Geometry invariant and typography configuration consistency (5.5" x 8.5")
   assert.ok(TYPOGRAPHY_CONFIG.lg);
   assert.strictEqual(TYPOGRAPHY_CONFIG.md.fontSizePx, 16.0);
   assert.strictEqual(TYPOGRAPHY_CONFIG.md.lineHeightPx, 26);
-  assert.strictEqual(TYPOGRAPHY_CONFIG.md.pageLineBudget, 26);
+  assert.strictEqual(TYPOGRAPHY_CONFIG.md.pageLineBudget, 25);
 });
 
 it('8. Deterministic pagination across multiple runs', () => {

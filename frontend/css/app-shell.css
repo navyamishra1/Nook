@@ -2543,7 +2543,7 @@ body.in-reader-mode[data-reader-active-theme="eye-comfort"] {
   --reader-page-width: 550px;
   --reader-page-aspect: 11 / 17;
   --reader-page-padding-top: 56px;
-  --reader-page-padding-bottom: 64px;
+  --reader-page-padding-bottom: 84px;
   --reader-page-padding-x: 56px;
   --reader-font-size-sm: 14.5px;
   --reader-line-height-sm: 1.58;
@@ -2779,7 +2779,7 @@ body.in-reader-mode[data-reader-active-theme="eye-comfort"] {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding-bottom: 26px;
+  padding-bottom: 0;
   color: inherit;
   user-select: text;
   -webkit-user-select: text;
@@ -2816,6 +2816,10 @@ body.in-reader-mode[data-reader-active-theme="eye-comfort"] {
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
+}
+
+.reader-prose p:last-child {
+  margin-bottom: 0;
 }
 
 .reader-prose p.is-para-continuation {
@@ -2954,7 +2958,7 @@ body.in-focused-reading-mode .reader-paper-page,
   height: auto !important;
   max-height: calc(100vh - 64px) !important;
   margin: 0 auto !important;
-  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 64px) var(--reader-page-padding-x, 56px) !important;
+  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 84px) var(--reader-page-padding-x, 56px) !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: visible !important;
@@ -2999,7 +3003,7 @@ body.in-focused-reading-mode .reader-page-flip-stage,
 
 body.in-focused-reading-mode .reader-flip-face,
 :fullscreen .reader-flip-face {
-  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 64px) var(--reader-page-padding-x, 56px) !important;
+  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 84px) var(--reader-page-padding-x, 56px) !important;
   box-sizing: border-box !important;
   border-radius: 2px !important;
 }
@@ -3606,22 +3610,12 @@ body[data-reader-active-theme="dark"] .reader-page-flip-under-shadow {
     flex-wrap: wrap;
   }
   .reader-stage {
-    padding: 20px 32px 60px;
-    max-width: 600px;
+    padding: 20px 16px 60px;
+    max-width: 100%;
     width: 100%;
   }
   .reader-prose {
     max-width: 100%;
-  }
-  .reader-prose-header {
-    margin-bottom: 22px;
-  }
-  .reader-prose-chapter-title {
-    font-size: 24px;
-  }
-  .reader-prose p:first-of-type::first-letter {
-    font-size: 2.6em;
-    line-height: 0.85;
   }
   .reader-book-info .reader-info-sep,
   .reader-book-info .reader-chapter-label {
@@ -3629,18 +3623,18 @@ body[data-reader-active-theme="dark"] .reader-page-flip-under-shadow {
   }
 
   .reader-page-flip-stage {
-    padding: 0 32px;
-    max-width: 600px;
+    padding: 0 16px;
+    max-width: 100%;
     perspective: 1200px;
   }
   .reader-flip-face {
-    padding: 20px 32px 60px;
+    padding: 20px 16px 60px;
   }
 }
 
 @media (max-width: 480px) {
   .reader-stage {
-    padding: 16px 20px 60px;
+    padding: 16px 12px 60px;
     max-width: 100%;
     width: 100%;
   }
