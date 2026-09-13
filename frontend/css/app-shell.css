@@ -2896,16 +2896,31 @@ body.in-focused-reading-mode .reader-toolbar,
 body.in-focused-reading-mode .reader-top-progress-bar,
 body.in-focused-reading-mode footer.site-footer,
 body.in-focused-reading-mode .reader-elsewhere-panel,
-body.in-focused-reading-mode .reader-stationery-dock,
-body.in-focused-reading-mode .reader-highlighter-toast,
 :fullscreen header.masthead,
 :fullscreen .reader-toolbar,
 :fullscreen .reader-top-progress-bar,
 :fullscreen footer.site-footer,
-:fullscreen .reader-elsewhere-panel,
-:fullscreen .reader-stationery-dock,
-:fullscreen .reader-highlighter-toast {
+:fullscreen .reader-elsewhere-panel {
   display: none !important;
+}
+
+body.in-focused-reading-mode .reader-stationery-dock,
+:fullscreen .reader-stationery-dock {
+  display: flex !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+body.in-focused-reading-mode .stationery-item,
+:fullscreen .stationery-item {
+  pointer-events: auto !important;
+}
+
+body.in-focused-reading-mode .reader-highlighter-toast,
+:fullscreen .reader-highlighter-toast {
+  display: flex !important;
+  pointer-events: auto !important;
+  z-index: 1000 !important;
 }
 
 body.in-focused-reading-mode,

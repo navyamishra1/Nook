@@ -161,27 +161,26 @@ label[for],
   cursor: var(--cursor-pointer);
 }
 
-/* Explicit text inputs & editable areas always restore native text I-beam */
-input[type="text"],
-input[type="search"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="tel"],
-input[type="url"],
-textarea,
-[contenteditable="true"],
-.reader-prose p,
-.reader-prose p *,
-.reader-leaf-body p,
-.reader-leaf-body p *,
+
+/* Readable reading surface uses Nook custom bookmark cursor */
+.reader-paper-page,
+.reader-paper-page *,
+.reader-prose,
+.reader-prose *,
+.reader-leaf-body,
+.reader-leaf-body *,
 .reader-page-text,
+.reader-page-text *,
 .reader-paragraph,
+.reader-paragraph *,
 .reader-content,
-.journal-note-content,
-.journal-passage-quote,
-.passage-text {
-  cursor: text !important;
+.reader-content *,
+.reader-stage,
+.reader-chapter-title,
+.reader-book-title,
+.reader-page-prose,
+.reader-page-prose * {
+  cursor: var(--cursor-default);
 }
 
 /* Reader interactive elements & Physical Stationery Dock override with literary pointer */
@@ -200,20 +199,45 @@ textarea,
 .stationery-highlighter-body,
 .stationery-highlighter-body *,
 .reader-prose a,
+.reader-prose a *,
 .reader-prose button,
+.reader-prose button *,
 .reader-prose [role="button"],
+.reader-prose [role="button"] *,
 .reader-prose .highlight-phrase,
+.reader-prose .highlight-phrase *,
+.reader-prose [data-action],
+.reader-prose [data-action] *,
 .reader-nav-btn,
 .reader-nav-btn *,
 .reader-back-btn,
 .reader-back-btn *,
 .reader-btn,
 .reader-btn *,
+.reader-paper-corner-nav,
+.reader-paper-corner-nav *,
+.reader-focus-exit-btn,
+.reader-focus-exit-btn *,
 .toc-btn,
 .toc-btn *,
 .theme-btn,
-.theme-btn * {
+.theme-btn *,
+.modal-close-btn,
+.modal-close-btn * {
   cursor: var(--cursor-pointer) !important;
+}
+
+/* Explicit text inputs & editable areas always restore native text I-beam */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+textarea,
+[contenteditable="true"] {
+  cursor: text !important;
 }
 
 /* Explicit native interaction states */
