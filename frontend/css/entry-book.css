@@ -128,11 +128,43 @@
   );
 }
 
-/* Keyboard Focus Ring */
-.tactile-book:focus-visible {
-  outline: 2px solid var(--sage-deep);
-  outline-offset: 10px;
-  border-radius: 4px;
+/* Keyboard & Interaction States (Zero outer perimeter border/outline; accessible via key hint) */
+#entry-overlay,
+#entry-overlay:focus,
+#entry-overlay:focus-visible,
+#entry-overlay:focus-within,
+.book-stage-container,
+.book-stage-container:focus,
+.book-stage-container:focus-visible,
+.book-stage-container:focus-within,
+.tactile-book,
+.tactile-book:focus,
+.tactile-book:focus-visible,
+.tactile-book:focus-within,
+.tactile-book:hover,
+.tactile-book:active,
+#tactile-book-trigger,
+#tactile-book-trigger:focus,
+#tactile-book-trigger:focus-visible,
+#tactile-book-trigger:focus-within,
+#tactile-book-trigger:hover,
+#tactile-book-trigger:active,
+.tactile-book *,
+.tactile-book *:focus,
+.tactile-book *:focus-visible,
+.tactile-book *:focus-within {
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  outline-color: transparent !important;
+  border: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.tactile-book:focus-visible ~ .entry-prompt-text .key-hint,
+#tactile-book-trigger:focus-visible ~ .entry-prompt-text .key-hint {
+  outline: 2px solid var(--sage-deep) !important;
+  outline-offset: 2px !important;
 }
 
 /* ==========================================================================

@@ -42,13 +42,6 @@ export class EntryController {
     // Set initial closed state
     this.resetToClosed();
 
-    // Auto-focus the book control on initialization for immediate keyboard readiness
-    setTimeout(() => {
-      if (this.state === 'closed' && this.book) {
-        this.book.focus();
-      }
-    }, 50);
-
     // 1. Mouse Click on the book trigger surface
     this.book.addEventListener('click', (e) => {
       e.stopPropagation();
