@@ -2543,7 +2543,7 @@ body.in-reader-mode[data-reader-active-theme="eye-comfort"] {
   --reader-page-width: 550px;
   --reader-page-aspect: 11 / 17;
   --reader-page-padding-top: 56px;
-  --reader-page-padding-bottom: 84px;
+  --reader-page-padding-bottom: 64px;
   --reader-page-padding-x: 56px;
   --reader-font-size-sm: 14.5px;
   --reader-line-height-sm: 1.58;
@@ -2560,11 +2560,28 @@ body.in-reader-mode[data-reader-active-theme="eye-comfort"] {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin: 0 auto;
-  padding: 24px 16px 80px;
+  padding: 36px 40px 80px;
+  max-width: 100%;
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+}
+
+/* Page prose typography */
+.reader-prose p {
+  margin: 0 0 0.85em;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+}
+
+.reader-prose p.is-para-continuation {
+  margin-top: 0;
+  text-indent: 0;
 }
 
 /* ==========================================================================
@@ -2818,10 +2835,6 @@ body.in-reader-mode[data-reader-active-theme="eye-comfort"] {
   -ms-hyphens: none;
 }
 
-.reader-prose p:last-child {
-  margin-bottom: 0;
-}
-
 .reader-prose p.is-para-continuation {
   margin-top: 0;
   text-indent: 0;
@@ -2936,29 +2949,29 @@ body.in-focused-reading-mode .reader-stage,
 :fullscreen .reader-stage {
   width: 100% !important;
   max-width: 100% !important;
-  height: 100vh !important;
   min-height: 100vh !important;
+  height: auto !important;
   margin: 0 auto !important;
-  padding: 0 !important;
+  padding: 32px 16px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   position: relative !important;
-  overflow: hidden !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   box-sizing: border-box !important;
 }
 
-/* Dynamic 11:17 (5.5" × 8.5") Page Scaling in Fullscreen */
+/* 11:17 (5.5" × 8.5") Page Geometry in Focus Mode (Identical to Normal Mode) */
 body.in-focused-reading-mode .reader-paper-page,
 :fullscreen .reader-paper-page {
-  width: min(var(--reader-page-width, 550px), calc(100vw - 48px), calc((100vh - 64px) * (11 / 17))) !important;
+  width: var(--reader-page-width, 550px) !important;
   max-width: calc(100vw - 32px) !important;
   aspect-ratio: 11 / 17 !important;
   height: auto !important;
-  max-height: calc(100vh - 64px) !important;
   margin: 0 auto !important;
-  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 84px) var(--reader-page-padding-x, 56px) !important;
+  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 64px) var(--reader-page-padding-x, 56px) !important;
   box-sizing: border-box !important;
   position: relative !important;
   overflow: visible !important;
@@ -2988,11 +3001,10 @@ body.in-focused-reading-mode .reader-page-flip-overlay,
 
 body.in-focused-reading-mode .reader-page-flip-stage,
 :fullscreen .reader-page-flip-stage {
-  width: min(var(--reader-page-width, 550px), calc(100vw - 48px), calc((100vh - 64px) * (11 / 17))) !important;
+  width: var(--reader-page-width, 550px) !important;
   max-width: calc(100vw - 32px) !important;
   aspect-ratio: 11 / 17 !important;
   height: auto !important;
-  max-height: calc(100vh - 64px) !important;
   margin: 0 auto !important;
   padding: 0 !important;
   position: relative !important;
@@ -3003,7 +3015,7 @@ body.in-focused-reading-mode .reader-page-flip-stage,
 
 body.in-focused-reading-mode .reader-flip-face,
 :fullscreen .reader-flip-face {
-  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 84px) var(--reader-page-padding-x, 56px) !important;
+  padding: var(--reader-page-padding-top, 56px) var(--reader-page-padding-x, 56px) var(--reader-page-padding-bottom, 64px) var(--reader-page-padding-x, 56px) !important;
   box-sizing: border-box !important;
   border-radius: 2px !important;
 }

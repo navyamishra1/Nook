@@ -88,6 +88,15 @@ export class ReaderController {
       this.contentData = await fetchBookContent(bookId);
       this.isLoading = false;
 
+      // Ensure web fonts (Literata / Fraunces) are fully loaded before computing DOM pagination
+      if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (fontErr) {
+          console.warn('[NOOK READER] Font loading check warning:', fontErr);
+        }
+      }
+
       // Compute deterministic digital pagination
       this.pagination = paginateBook(this.contentData, this.fontSize);
 

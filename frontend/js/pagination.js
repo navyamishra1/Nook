@@ -18,8 +18,8 @@ export const TYPOGRAPHY_CONFIG = {
     lineHeightPx: 23,
     charsPerLine: 64,
     wordsPerLine: 11.5,
-    pageLineBudget: 29,
-    chapter1LineBudget: 21,
+    pageLineBudget: 27,
+    chapter1LineBudget: 17,
     paragraphGapLines: 0.6,
   },
   md: {
@@ -27,8 +27,8 @@ export const TYPOGRAPHY_CONFIG = {
     lineHeightPx: 26,
     charsPerLine: 58,
     wordsPerLine: 10.2,
-    pageLineBudget: 25,
-    chapter1LineBudget: 18,
+    pageLineBudget: 23,
+    chapter1LineBudget: 14,
     paragraphGapLines: 0.6,
   },
   lg: {
@@ -36,8 +36,8 @@ export const TYPOGRAPHY_CONFIG = {
     lineHeightPx: 29.5,
     charsPerLine: 52,
     wordsPerLine: 9.0,
-    pageLineBudget: 22,
-    chapter1LineBudget: 15,
+    pageLineBudget: 20,
+    chapter1LineBudget: 12,
     paragraphGapLines: 0.6,
   },
 };
@@ -126,8 +126,8 @@ function checkDomFit(measurer, headerHtml, paragraphUnits, fontSize, isChapterFi
   const lastParaBottom = lastPara ? (lastPara.offsetTop + lastPara.offsetHeight) : proseBottom;
 
   // The 48px corner navigation arrows and folio sit at bottom: 16px (top of footer is clientH - 64).
-  // Readable text must strictly end above this reserved footer zone with guaranteed clear space (at or above clientH - 80).
-  const maxAllowedBottom = clientH - 80;
+  // Readable text must strictly end above this reserved footer zone with guaranteed generous whitespace (at or above clientH - 110).
+  const maxAllowedBottom = clientH - 110;
 
   return scrollH <= clientH && proseBottom <= maxAllowedBottom && lastParaBottom <= maxAllowedBottom;
 }
@@ -202,11 +202,11 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
   if (maxFittingWords >= words.length) return words.length;
 
   // 1. Orphan paragraph start at page bottom:
-  // If the page already has content and fewer than 6 words fit (or < 35 chars),
-  // do not leave a 1-5 word orphan at the page bottom. Move the paragraph to the next page.
+  // If the page already has content and fewer than 12 words fit (or < 65 chars),
+  // do not leave a 1-line orphan at the page bottom. Move the paragraph to the next page.
   const fittingSlice = words.slice(0, maxFittingWords);
   const fittingText = fittingSlice.join(' ');
-  if (hasPriorContentOnPage && (maxFittingWords < 6 || fittingText.length < 35)) {
+  if (hasPriorContentOnPage && (maxFittingWords < 12 || fittingText.length < 65)) {
     return 0;
   }
 
@@ -231,7 +231,7 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
       if (remainingWordsCount > 0 && remainingWordsCount < 4 && sentenceEnds.length >= 2) {
         const prevSentenceEnd = sentenceEnds[sentenceEnds.length - 2];
         const prevCandidate = prevSentenceEnd + 1;
-        if (prevCandidate >= 6 || !hasPriorContentOnPage) {
+        if (prevCandidate >= 12 || !hasPriorContentOnPage) {
           return prevCandidate;
         }
       }
@@ -239,10 +239,10 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
     }
 
     // Trailing fragment after last complete sentence
-    // Orphan threshold: fewer than 8 words OR fewer than 45 characters
-    if (trailingWords < 8 || trailingText.length < 45) {
+    // Orphan threshold: fewer than 10 words OR fewer than 55 characters
+    if (trailingWords < 10 || trailingText.length < 55) {
       const candidateCount = lastSentenceEnd + 1;
-      if (candidateCount >= 6 || !hasPriorContentOnPage) {
+      if (candidateCount >= 12 || !hasPriorContentOnPage) {
         return candidateCount;
       }
       if (hasPriorContentOnPage) {
@@ -250,11 +250,11 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
       }
     }
 
-    // If trailing words >= 8, check widow on next page
+    // If trailing words >= 10, check widow on next page
     const remainingWordsCount = words.length - maxFittingWords;
     if (remainingWordsCount > 0 && remainingWordsCount < 4) {
       const candidateCount = lastSentenceEnd + 1;
-      if (candidateCount >= 6 || !hasPriorContentOnPage) {
+      if (candidateCount >= 12 || !hasPriorContentOnPage) {
         return candidateCount;
       }
     }
@@ -269,7 +269,7 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
       const trailingAfterClause = maxFittingWords - 1 - lastClauseEnd;
       if (trailingAfterClause > 0 && trailingAfterClause < 4) {
         const candidate = lastClauseEnd + 1;
-        if (candidate >= 6 || !hasPriorContentOnPage) {
+        if (candidate >= 12 || !hasPriorContentOnPage) {
           return candidate;
         }
       }
@@ -279,7 +279,7 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
   }
 
   // 4. No complete sentence in fitting slice (e.g. single long sentence or continuation)
-  if (hasPriorContentOnPage && (maxFittingWords < 6 || fittingText.length < 35)) {
+  if (hasPriorContentOnPage && (maxFittingWords < 12 || fittingText.length < 65)) {
     return 0; // Flush page to allow sentence room at top of next page
   }
 
@@ -294,7 +294,7 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
     const trailingAfterClause = maxFittingWords - 1 - lastClauseEnd;
     if (trailingAfterClause > 0 && trailingAfterClause < 4) {
       const candidate = lastClauseEnd + 1;
-      if (candidate >= 6 || !hasPriorContentOnPage) {
+      if (candidate >= 12 || !hasPriorContentOnPage) {
         return candidate;
       }
     }
@@ -305,7 +305,7 @@ function refineFittingWordCount(words, maxFittingWords, hasPriorContentOnPage) {
   if (remainingWordsCount > 0 && remainingWordsCount < 4 && clauseEnds.length > 0) {
     const lastClauseEnd = clauseEnds[clauseEnds.length - 1];
     const candidate = lastClauseEnd + 1;
-    if (candidate >= 6 || !hasPriorContentOnPage) {
+    if (candidate >= 12 || !hasPriorContentOnPage) {
       return candidate;
     }
   }
