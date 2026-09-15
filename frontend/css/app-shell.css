@@ -1240,7 +1240,14 @@ h2.section-title {
   position: relative;
   width: 270px;
   height: 270px;
+  margin-top: 8px;
   margin-bottom: 28px;
+}
+
+@media (max-width: 480px) {
+  .wheel-zone {
+    padding: 36px 16px 32px;
+  }
 }
 
 .wheel {
@@ -1386,6 +1393,7 @@ h2.section-title {
 }
 
 .result-card .cover-mini {
+  position: relative;
   width: 76px;
   height: 108px;
   border-radius: var(--radius-xs);
