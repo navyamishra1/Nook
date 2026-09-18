@@ -18,7 +18,7 @@
  */
 
 import { getBookById, fetchBookContent, saveReadingProgress, getReadingProgressForBook } from './catalog.js';
-import { paginateBook } from './pagination.js';
+import { paginateBook, getReaderPageDimensions } from './pagination.js';
 import { findSimilarChapters } from './chapter-similarity.js';
 import { showTableOfContentsModal, buildTableOfContentsData } from './table-of-contents.js';
 import {
@@ -56,6 +56,9 @@ export class ReaderController {
     this.handleKeydown = this.onKeydown.bind(this);
     this.handleFullscreenChange = this.onFullscreenChange.bind(this);
     this.handleSelection = this.onTextSelectionChange.bind(this);
+    this.handleResize = this.onWindowResize.bind(this);
+    this._resizeTimer = null;
+    this._lastMeasuredDims = null;
     this.isTransitioning = false;
     this.isFocusedMode = false;
   }
@@ -97,8 +100,12 @@ export class ReaderController {
         }
       }
 
-      // Compute deterministic digital pagination
-      this.pagination = paginateBook(this.contentData, this.fontSize);
+      // Compute deterministic digital pagination for current viewport and mode
+      this._lastMeasuredDims = getReaderPageDimensions(this.isFocusedMode);
+      this.pagination = paginateBook(this.contentData, this.fontSize, {
+        isFocusedMode: this.isFocusedMode,
+        dimensions: this._lastMeasuredDims
+      });
 
       // Determine starting digital page number
       const savedProgress = getReadingProgressForBook(this.activeBookId);
@@ -136,6 +143,10 @@ export class ReaderController {
       this.attachKeyboardListener();
       this.attachFullscreenListeners();
       this.attachSelectionListeners();
+      
+      window.removeEventListener('resize', this.handleResize);
+      window.addEventListener('resize', this.handleResize);
+
       this.saveProgress();
       window.scrollTo({ top: 0, behavior: 'instant' });
     } catch (err) {
@@ -144,6 +155,38 @@ export class ReaderController {
       this.error = err;
       this.render();
     }
+  }
+
+  /**
+   * Responds to viewport dimension changes with debounced recalibration.
+   */
+  onWindowResize() {
+    if (!this.contentData || !this.pagination || !this.container) return;
+    clearTimeout(this._resizeTimer);
+    this._resizeTimer = setTimeout(() => {
+      const newDims = getReaderPageDimensions(this.isFocusedMode);
+      if (this._lastMeasuredDims && 
+          Math.abs(this._lastMeasuredDims.width - newDims.width) < 6 && 
+          Math.abs(this._lastMeasuredDims.height - newDims.height) < 6) {
+        return;
+      }
+      this._lastMeasuredDims = newDims;
+      const curPage = this.pagination.getPage(this.currentPageNumber);
+      const curWordOffset = curPage ? curPage.startWordIndex : 0;
+
+      this.pagination = paginateBook(this.contentData, this.fontSize, {
+        forceRepaginate: true,
+        isFocusedMode: this.isFocusedMode,
+        dimensions: newDims
+      });
+
+      const newPage = this.pagination.getPageForWordOffset(curWordOffset);
+      this.currentPageNumber = newPage ? newPage.pageNumber : 1;
+      this.currentChapterIndex = newPage ? newPage.chapterIndex : 0;
+      this.render();
+      this.applyTheme(this.readerTheme);
+      this.saveProgress();
+    }, 120);
   }
 
   /**
@@ -161,7 +204,11 @@ export class ReaderController {
     localStorage.setItem('nook_reader_fontsize', size);
 
     if (this.contentData) {
-      this.pagination = paginateBook(this.contentData, this.fontSize, { forceRepaginate: true });
+      this.pagination = paginateBook(this.contentData, this.fontSize, {
+        forceRepaginate: true,
+        isFocusedMode: this.isFocusedMode,
+        dimensions: getReaderPageDimensions(this.isFocusedMode)
+      });
       const newPage = this.pagination.getPageForWordOffset(curWordOffset);
       this.currentPageNumber = newPage ? newPage.pageNumber : 1;
       this.currentChapterIndex = newPage ? newPage.chapterIndex : 0;
@@ -202,13 +249,10 @@ export class ReaderController {
       document.mozFullScreenElement ||
       document.msFullscreenElement
     );
-    this.isFocusedMode = isFullscreen;
-    document.body.classList.toggle('in-focused-reading-mode', this.isFocusedMode);
-
-    const focusBtn = this.container?.querySelector('#readerFocusBtn');
-    if (focusBtn) {
-      focusBtn.classList.toggle('active', this.isFocusedMode);
-      focusBtn.setAttribute('aria-pressed', this.isFocusedMode ? 'true' : 'false');
+    if (this.isFocusedMode !== isFullscreen) {
+      this.isFocusedMode = isFullscreen;
+      document.body.classList.toggle('in-focused-reading-mode', this.isFocusedMode);
+      this.repaginateForCurrentMode();
     }
   }
 
@@ -236,11 +280,10 @@ export class ReaderController {
    */
   async toggleFocusedMode(forceState = null) {
     const shouldEnter = typeof forceState === 'boolean' ? forceState : !this.isFocusedMode;
+    this.isFocusedMode = shouldEnter;
+    document.body.classList.toggle('in-focused-reading-mode', this.isFocusedMode);
 
     if (shouldEnter) {
-      this.isFocusedMode = true;
-      document.body.classList.add('in-focused-reading-mode');
-
       try {
         const rootEl = document.documentElement;
         if (rootEl.requestFullscreen) {
@@ -253,12 +296,9 @@ export class ReaderController {
           await rootEl.msRequestFullscreen();
         }
       } catch (err) {
-        console.warn('[NOOK READER] Fullscreen API request failed or was not allowed; using CSS focused reading fallback:', err);
+        console.warn('[NOOK READER] Fullscreen API request fallback:', err);
       }
     } else {
-      this.isFocusedMode = false;
-      document.body.classList.remove('in-focused-reading-mode');
-
       const isFs = !!(
         document.fullscreenElement ||
         document.webkitFullscreenElement ||
@@ -282,6 +322,32 @@ export class ReaderController {
         }
       }
     }
+
+    this.repaginateForCurrentMode();
+  }
+
+  /**
+   * Re-paginates content for current mode geometry and preserves exact word position.
+   */
+  repaginateForCurrentMode() {
+    if (!this.contentData) return;
+    const curPage = this.pagination ? this.pagination.getPage(this.currentPageNumber) : null;
+    const curWordOffset = curPage ? curPage.startWordIndex : 0;
+    const newDims = getReaderPageDimensions(this.isFocusedMode);
+    this._lastMeasuredDims = newDims;
+
+    this.pagination = paginateBook(this.contentData, this.fontSize, {
+      forceRepaginate: true,
+      isFocusedMode: this.isFocusedMode,
+      dimensions: newDims
+    });
+
+    const newPage = this.pagination.getPageForWordOffset(curWordOffset);
+    this.currentPageNumber = newPage ? newPage.pageNumber : 1;
+    this.currentChapterIndex = newPage ? newPage.chapterIndex : 0;
+    this.render();
+    this.applyTheme(this.readerTheme);
+    this.saveProgress();
 
     const focusBtn = this.container?.querySelector('#readerFocusBtn');
     if (focusBtn) {
@@ -1252,6 +1318,8 @@ export class ReaderController {
   }
 
   destroy() {
+    window.removeEventListener('resize', this.handleResize);
+    clearTimeout(this._resizeTimer);
     this.detachKeyboardListener();
     this.detachFullscreenListeners();
     this.detachSelectionListeners();
